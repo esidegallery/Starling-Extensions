@@ -135,5 +135,12 @@ package starling.extensions
 				dispatchEventWith(TIMER_COMPLETE);
 			}
 		}
+		
+		public function dispose():void
+		{
+			removeEventListeners();
+			reset();
+			juggler = null;
+		}
 	}
 }
