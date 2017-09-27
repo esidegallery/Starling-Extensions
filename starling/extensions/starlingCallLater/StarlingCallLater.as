@@ -92,6 +92,23 @@ package starling.extensions.starlingCallLater
 				Starling.current.stage.removeEventListener(Event.ENTER_FRAME, stage_enterFrameHandler);
 		}
 		
+		public static function methodIsQueued(method:Function):Boolean
+		{
+			for each (var functionRefs:Vector.<FunctionReference> in callStack)
+			{
+				if (functionRefs)
+				{
+					for (var i:int = 0; i < functionRefs.length; i++)
+					{
+						var functionRef:FunctionReference = functionRefs[i];
+						if (functionRef.method == method)
+							return true;
+					}
+				}
+			}
+			return false;
+		}
+		
 		private static function stage_enterFrameHandler(event:Event):void
 		{
 			var functionRefs:Vector.<FunctionReference>;
