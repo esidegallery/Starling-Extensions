@@ -45,7 +45,7 @@ package starling.extensions.starlingCallLater
 		
 		/**
 		 * Clears all entries of the passed function from the call stack, or all functions if no function is passed.
-		 * @param method		The function reference to clear.
+		 * @param method		The function reference to clear. Pass null to clear all pending methods.
 		 * @param callCleared 	Whether to instantly call those functions cleared from the call stack.
 		 */
 		public static function clear(method:Function = null, callCleared:Boolean = false):void
@@ -63,9 +63,9 @@ package starling.extensions.starlingCallLater
 						functionRef = functionRefs[i];
 						if (functionRef.method == method)
 						{
+							functionRefs.splice(i--, 1);
 							if (callCleared)
 								functionRef.method.apply(null, functionRef.args);
-							functionRefs.splice(i--, 1);
 						}
 					}
 				}
