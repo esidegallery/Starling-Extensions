@@ -11,9 +11,9 @@ package starling.extensions.flashEventWrapper
 		 * Qualifies a Flash event's type by prepending the qualified event class name.
 		 * Eliminates duplicate Flash event types when wrapping inside a Starling event.
 		 */
-		public static function getQualifiedEventType(eventInstanceOrClass:*, type:String):String
+		public static function getStarlingEventType(wrappedEventInstanceOrClass:*, type:String):String
 		{
-			return getQualifiedClassName(eventInstanceOrClass) + "_" + type;
+			return getQualifiedClassName(wrappedEventInstanceOrClass) + "_" + type;
 		}
 		
 		/** 
@@ -23,7 +23,7 @@ package starling.extensions.flashEventWrapper
 		 */
 		public static function wrapFlashEvent(event:flash.events.Event):starling.events.Event
 		{
-			return new starling.events.Event(getQualifiedEventType(event, event.type), event.bubbles, event);
+			return new starling.events.Event(getStarlingEventType(event, event.type), event.bubbles, event);
 		}
 	}
 }
