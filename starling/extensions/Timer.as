@@ -21,6 +21,10 @@ package starling.extensions
 		private var _currentCount:uint;
 		private var _running:Boolean;
 		
+		/**
+		 * @param delay:Number The delay between timer events, in milliseconds.
+		 * @param repeatCount:int Specifies the number of repetitions. If zero, the timer repeats indefinitely. If nonzero, the timer runs the specified number of times and then stops.
+		 */
 		public function Timer(delay:uint = 0, repeatCount:uint = 0)
 		{
 			super();
@@ -97,7 +101,7 @@ package starling.extensions
 		public function stop():void
 		{
 			_running = false;
-			juggler.remove(delayedCall);
+			juggler && juggler.remove(delayedCall);
 		}
 		
 		/** 
