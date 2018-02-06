@@ -25,7 +25,7 @@ package starling.extensions
 		 * @param delay:Number The delay between timer events, in milliseconds.
 		 * @param repeatCount:int Specifies the number of repetitions. If zero, the timer repeats indefinitely. If nonzero, the timer runs the specified number of times and then stops.
 		 */
-		public function Timer(delay:uint = 0, repeatCount:uint = 0)
+		public function Timer(delay:uint = uint.MAX_VALUE, repeatCount:uint = 0)
 		{
 			super();
 			
