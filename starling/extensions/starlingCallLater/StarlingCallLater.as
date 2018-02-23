@@ -22,24 +22,34 @@ package starling.extensions.starlingCallLater
 		public static function callLater(method:Function, args:Array = null, nextFrameBut:uint = 0, allowDuplicate:Boolean = false):void
 		{
 			if (!Boolean(method))
+			{
 				return;
+			}
 			
 			if (!allowDuplicate)
+			{
 				clear(method);
+			}
 			
 			var stage:Stage = Starling.current.stage;
 			
 			if (!stage)
+			{
 				method.apply(null, args);
+			}
 			else
 			{
 				if (callStack[nextFrameBut] == null)
+				{
 					callStack[nextFrameBut] = new Vector.<FunctionReference>;
+				}
 				
 				callStack[nextFrameBut].push(new FunctionReference(method, args));
 				
 				if (!stage.hasEventListener(Event.ENTER_FRAME, stage_enterFrameHandler))
+				{
 					stage.addEventListener(Event.ENTER_FRAME, stage_enterFrameHandler);
+				}
 			}
 		}
 		
@@ -57,7 +67,9 @@ package starling.extensions.starlingCallLater
 				for each (var functionRefs:Vector.<FunctionReference> in callStack)
 				{
 					if (!functionRefs)
+					{
 						continue;
+					}
 					for (var i:int = 0; i < functionRefs.length; i++)
 					{
 						functionRef = functionRefs[i];
@@ -65,7 +77,9 @@ package starling.extensions.starlingCallLater
 						{
 							functionRefs.splice(i--, 1);
 							if (callCleared)
+							{
 								functionRef.method.apply(null, functionRef.args);
+							}
 						}
 					}
 				}
@@ -86,10 +100,14 @@ package starling.extensions.starlingCallLater
 				}
 			}
 			else
+			{
 				callStack = [];
+			}
 			
 			if (!callStack.length && Starling.current.stage)
+			{
 				Starling.current.stage.removeEventListener(Event.ENTER_FRAME, stage_enterFrameHandler);
+			}
 		}
 		
 		public static function methodIsQueued(method:Function):Boolean
@@ -102,7 +120,9 @@ package starling.extensions.starlingCallLater
 					{
 						var functionRef:FunctionReference = functionRefs[i];
 						if (functionRef.method == method)
+						{
 							return true;
+						}
 					}
 				}
 			}
@@ -113,7 +133,9 @@ package starling.extensions.starlingCallLater
 		{
 			var functionRefs:Vector.<FunctionReference>;
 			if (callStack.length)
+			{
 				functionRefs = callStack.shift() as Vector.<FunctionReference>;
+			}
 			
 			if (functionRefs)
 			{
@@ -125,7 +147,9 @@ package starling.extensions.starlingCallLater
 			}
 			
 			if (!callStack.length)
+			{
 				event.target.removeEventListener(Event.ENTER_FRAME, stage_enterFrameHandler);
+			}
 		}
 	}
 	
