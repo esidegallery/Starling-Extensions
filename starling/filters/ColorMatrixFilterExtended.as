@@ -1,7 +1,5 @@
  	package starling.filters
 {
-	import feathers.controls.SpinnerList;
-	
 	import starling.utils.Color;
 
 	public class ColorMatrixFilterExtended extends ColorMatrixFilter
@@ -58,21 +56,6 @@
 			]));
 		}
 		
-		/** Not tested and probably not possible */
-		public function overlay(color:uint):void
-		{
-			var r:Number = Color.getRed(color) / 255;
-			var g:Number = Color.getGreen(color) / 255;
-			var b:Number = Color.getBlue(color) / 255;
-			
-			concat(Vector.<Number>([
-				LUMA_R * r,      LUMA_G,      LUMA_B,  0,  0, 
-				    LUMA_R,  LUMA_G * g,      LUMA_B,  0,  0, 
-				    LUMA_R,      LUMA_G,  LUMA_B * b,  0,  0, 
-				         0,           0,           0,  1,  0
-			]));
-		}
-		
 		public function fill(color:uint):void
 		{
 			concat(Vector.<Number>([
@@ -99,7 +82,7 @@
 		}
 		
 		// Adapted from this answer: https://stackoverflow.com/a/21492544/545066
-		public function colorizeWithAlpha(color:uint, colorAlpha:Number, sourceAlpha:Number):void
+		public function blendWithColor(color:uint, colorAlpha:Number, sourceAlpha:Number):void
 		{
 			var aMult:Number = (colorAlpha + sourceAlpha) - (colorAlpha * sourceAlpha);
 			var cAmount:Number = (colorAlpha - sourceAlpha * colorAlpha) / aMult;
@@ -114,6 +97,21 @@
 				0,     cMult,      0,      0,  gOffset,
 				0,         0,  cMult,      0,  bOffset,
 				0,         0,      0,  aMult,        0
+			]));
+		}
+		
+		public function overlayOnColor(color:uint, sourceAlpha:Number):void
+		{
+			var mult:Number = sourceAlpha;
+			var rOffset:Number = Color.getRed(color) * (1 - mult);
+			var gOffset:Number = Color.getGreen(color) * (1 - mult);
+			var bOffset:Number = Color.getBlue(color) * (1 - mult);
+			
+			concat(Vector.<Number>([
+				mult,     0,     0,  0,  rOffset,
+				0,     mult,     0,  0,  gOffset,
+				0,        0,  mult,  0,  bOffset,
+				0,        0,     0,  1,        0
 			]));
 		}
 	}
