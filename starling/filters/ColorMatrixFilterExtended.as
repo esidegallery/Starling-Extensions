@@ -100,18 +100,43 @@
 			]));
 		}
 		
-		public function overlayOnColor(color:uint, sourceAlpha:Number):void
+		/** This is the closest I can get but it basically doesn't work. */
+		public function colorizeSolid(color:uint, amount:Number):void
 		{
-			var mult:Number = sourceAlpha;
-			var rOffset:Number = Color.getRed(color) * (1 - mult);
-			var gOffset:Number = Color.getGreen(color) * (1 - mult);
-			var bOffset:Number = Color.getBlue(color) * (1 - mult);
+			var invAmount:Number = 1 - amount;
+			
+			var rVal:Number = Color.getRed(color); 
+			var gVal:Number = Color.getGreen(color); 
+			var bVal:Number = Color.getBlue(color); 
+			
+			var rOffset:Number = rVal * amount;
+			var gOffset:Number = gVal * amount;
+			var bOffset:Number = bVal * amount;
 			
 			concat(Vector.<Number>([
-				mult,     0,     0,  0,  rOffset,
-				0,     mult,     0,  0,  gOffset,
-				0,        0,  mult,  0,  bOffset,
-				0,        0,     0,  1,        0
+				invAmount,     0,     0,  -(rVal * invAmount) / 255,  rOffset + rVal * invAmount,
+				0,     invAmount,     0,  -(gVal * invAmount) / 255,  gOffset + gVal * invAmount,
+				0,        0,  invAmount,  -(bVal * invAmount) / 255,  bOffset + bVal * invAmount,
+				0,        0,     0,            0,             255
+			]));
+		}
+		
+		/** Doesn't work. */
+		public function colorizeBackground(color:uint):void
+		{
+			var rVal:Number = Color.getRed(color); 
+			var gVal:Number = Color.getGreen(color); 
+			var bVal:Number = Color.getBlue(color); 
+			
+			var rMult:Number = rVal / 255;
+			var gMult:Number = gVal / 255;
+			var bMult:Number = bVal / 255;
+			
+			concat(Vector.<Number>([
+				rMult,     0,     0,  rMult-1,   rVal,
+				0,     gMult,     0,  gMult-1,   gVal,
+				0,     0,     bMult,  bMult-1,   bVal,
+				0,     0,     0,  0,    255
 			]));
 		}
 	}
