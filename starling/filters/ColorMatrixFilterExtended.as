@@ -56,7 +56,7 @@
 			]));
 		}
 		
-		public function duoTone(blackColour:uint, whiteColour:uint, amount:Number = 1):void
+		public function duoTone(blackColour:uint, whiteColour:uint):void
 		{
 			var rW:Number = Color.getRed(whiteColour);
 			var gW:Number = Color.getGreen(whiteColour);
@@ -66,14 +66,14 @@
 			var gB:Number = Color.getGreen(blackColour);
 			var bB:Number = Color.getBlue(blackColour);
 			
-			var rAdd:Number = rB - amount * rW / 255;
-			var gAdd:Number = gB - amount * gW / 255;
-			var bAdd:Number = bB - amount * bW / 255;
+			var rAdd:Number = (rW - rB)/ 255;
+			var gAdd:Number = (gW - gB) / 255;
+			var bAdd:Number = (bW - bB) / 255;
 			
 			concat(Vector.<Number>([
-				rAdd * LUMA_R,  rAdd * LUMA_G,  rAdd * LUMA_B,  0,  rB * amount,
-				gAdd * LUMA_R,  gAdd * LUMA_G,  gAdd * LUMA_B,  0,  gB * amount,
-				bAdd * LUMA_R,  bAdd * LUMA_G,  bAdd * LUMA_B,  0,  bB * amount,
+				rAdd * LUMA_R,  rAdd * LUMA_G,  rAdd * LUMA_B,  0,  rB,
+				gAdd * LUMA_R,  gAdd * LUMA_G,  gAdd * LUMA_B,  0,  gB,
+				bAdd * LUMA_R,  bAdd * LUMA_G,  bAdd * LUMA_B,  0,  bB,
 				            0,              0,              0 , 1,  0
 			]));
 		}
