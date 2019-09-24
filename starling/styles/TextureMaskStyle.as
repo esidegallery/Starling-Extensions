@@ -8,7 +8,7 @@
 //
 // =================================================================================================
 
-package starling.extensions
+package starling.styles
 {
     import starling.display.Mesh;
     import starling.rendering.MeshEffect;
@@ -75,7 +75,6 @@ package starling.extensions
 
 import flash.display3D.Context3D;
 
-import starling.extensions.TextureMaskStyle;
 import starling.rendering.MeshEffect;
 import starling.rendering.Program;
 import starling.rendering.VertexDataFormat;

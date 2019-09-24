@@ -1,4 +1,5 @@
-package starling.extensions {
+package starling.styles
+{
     import starling.display.Mesh;
     import starling.rendering.MeshEffect;
     import starling.rendering.VertexDataFormat;
@@ -204,10 +205,10 @@ package starling.extensions {
 import flash.display3D.Context3D;
 import flash.display3D.Context3DProgramType;
 
-import starling.extensions.ColorTransformStyle;
 import starling.rendering.MeshEffect;
 import starling.rendering.Program;
 import starling.rendering.VertexDataFormat;
+import starling.styles.ColorTransformStyle;
 
 class ColorTransformEffect extends MeshEffect 
 {
