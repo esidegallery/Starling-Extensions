@@ -56,7 +56,7 @@
 			]));
 		}
 		
-		public function duoTone(blackColour:uint, whiteColour:uint):void
+		public function duoTone(blackColour:uint, whiteColour:uint, blackAlpha:Number = 1, whiteAlpha:Number = 1):void
 		{
 			var rW:Number = Color.getRed(whiteColour);
 			var gW:Number = Color.getGreen(whiteColour);
@@ -66,15 +66,36 @@
 			var gB:Number = Color.getGreen(blackColour);
 			var bB:Number = Color.getBlue(blackColour);
 			
-			var rAdd:Number = (rW - rB)/ 255;
+			var rAdd:Number = (rW - rB) / 255;
 			var gAdd:Number = (gW - gB) / 255;
 			var bAdd:Number = (bW - bB) / 255;
+			var aAdd:Number = whiteAlpha - blackAlpha;
+
+			var aMult:Number = 1;
+			var aOff:Number = blackAlpha * 255 - 255;
 			
 			concat(Vector.<Number>([
-				rAdd * LUMA_R,  rAdd * LUMA_G,  rAdd * LUMA_B,  0,  rB,
-				gAdd * LUMA_R,  gAdd * LUMA_G,  gAdd * LUMA_B,  0,  gB,
-				bAdd * LUMA_R,  bAdd * LUMA_G,  bAdd * LUMA_B,  0,  bB,
-				            0,              0,              0 , 1,  0
+				rAdd * LUMA_R,  rAdd * LUMA_G,  rAdd * LUMA_B,  0,    rB,
+				gAdd * LUMA_R,  gAdd * LUMA_G,  gAdd * LUMA_B,  0,    gB,
+				bAdd * LUMA_R,  bAdd * LUMA_G,  bAdd * LUMA_B,  0,    bB,
+				aAdd * LUMA_R,  aAdd * LUMA_G,  aAdd * LUMA_B,  1,  aOff
+			]));
+		}
+		
+		public function luminanceToAlpha(color:uint, negative:Boolean = false, preserveExistingAlpha:Boolean = true):void 
+		{
+			var rMult:Number = negative ? -LUMA_R : LUMA_R;
+			var gMult:Number = negative ? -LUMA_G : LUMA_G;
+			var bMult:Number = negative ? -LUMA_B : LUMA_B;
+			var aMult:Number = preserveExistingAlpha ? 1 : 0;
+			var aOff:Number = preserveExistingAlpha ? 
+				(negative ? 0 : -255) : 
+				(negative ? 255 : 0);
+			concat(Vector.<Number>([
+				0,      0,     0,     0,     Color.getRed(color) * 255,
+				0,      0,     0,     0,     Color.getGreen(color) * 255,
+				0,      0,     0,     0,     Color.getBlue(color) * 255,
+				rMult,  gMult, bMult, aMult, aOff
 			]));
 		}
 		

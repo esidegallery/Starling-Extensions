@@ -21,7 +21,7 @@ package starling.extensions.starlingCallLater
 		 */
 		public static function callLater(method:Function, args:Array = null, nextFrameBut:uint = 0, allowDuplicate:Boolean = false):void
 		{
-			if (!Boolean(method))
+			if (method == null)
 			{
 				return;
 			}
@@ -62,7 +62,7 @@ package starling.extensions.starlingCallLater
 		{
 			var functionRef:FunctionReference;
 			
-			if (method != null)
+			if (method !== null)
 			{
 				for each (var functionRefs:Vector.<FunctionReference> in callStack)
 				{
@@ -152,7 +152,6 @@ package starling.extensions.starlingCallLater
 			}
 		}
 	}
-	
 }
 
 class FunctionReference
