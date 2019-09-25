@@ -78,6 +78,7 @@ import flash.display3D.Context3D;
 import starling.rendering.MeshEffect;
 import starling.rendering.Program;
 import starling.rendering.VertexDataFormat;
+import starling.styles.TextureMaskStyle;
 
 class TextureMaskEffect extends MeshEffect
 {
