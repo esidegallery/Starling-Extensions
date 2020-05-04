@@ -208,7 +208,6 @@ import flash.display3D.Context3DProgramType;
 import starling.rendering.MeshEffect;
 import starling.rendering.Program;
 import starling.rendering.VertexDataFormat;
-import starling.styles.ColorTransformStyle;
 
 class ColorTransformEffect extends MeshEffect 
 {

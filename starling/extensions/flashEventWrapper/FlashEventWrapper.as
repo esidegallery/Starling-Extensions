@@ -2,7 +2,7 @@ package starling.extensions.flashEventWrapper
 {
 	import flash.events.Event;
 	import flash.utils.getQualifiedClassName;
-	
+
 	import starling.events.Event;
 
 	public class FlashEventWrapper
