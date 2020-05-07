@@ -81,7 +81,7 @@ import starling.rendering.VertexDataFormat;
 
 class TextureMaskEffect extends MeshEffect
 {
-    public static const VERTEX_FORMAT:VertexDataFormat = TextureMaskStyle.VERTEX_FORMAT;
+    public static const VERTEX_FORMAT:VertexDataFormat = starling.styles.TextureMaskStyle.VERTEX_FORMAT;
 
     public function TextureMaskEffect()
     { }

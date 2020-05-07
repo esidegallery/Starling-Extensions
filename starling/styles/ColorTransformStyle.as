@@ -211,7 +211,7 @@ import starling.rendering.VertexDataFormat;
 
 class ColorTransformEffect extends MeshEffect 
 {
-    public static const VERTEX_FORMAT:VertexDataFormat = ColorTransformStyle.VERTEX_FORMAT;
+    public static const VERTEX_FORMAT:VertexDataFormat = starling.styles.ColorTransformStyle.VERTEX_FORMAT;
 
     private static const COLOR_CONSTANTS:Vector.<Number> = new <Number>[0, 0.01, 0.0001, 1];
 
