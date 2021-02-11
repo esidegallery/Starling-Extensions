@@ -10,12 +10,12 @@
 		
 		public function desaturate():void
 		{
-			concat(Vector.<Number>([
+			concatValues(
 				LUMA_R,  LUMA_G,  LUMA_B,  0,  0, 
 				LUMA_R,  LUMA_G,  LUMA_B,  0,  0, 
 				LUMA_R,  LUMA_G,  LUMA_B,  0,  0, 
 				0,       0,       0,       1,  0
-			]));
+			)
 		}
 		
 		public function multiply(color:uint, amount:Number = 1):void
@@ -30,12 +30,12 @@
 			g += (1 - g) * q;
 			b += (1 - b) * q;
 				
-			concat(Vector.<Number>([
+			concatValues(
 				r * LUMA_R,  r * LUMA_G,  r * LUMA_B,  0,  0, 
 				g * LUMA_R,  g * LUMA_G,  g * LUMA_B,  0,  0, 
 				b * LUMA_R,  b * LUMA_G,  b * LUMA_B,  0,  0, 
 				0,           0,           0,           1,  0
-			]));
+			);
 		}
 		
 		public function screen(color:uint, amount:Number = 1):void
@@ -48,12 +48,12 @@
 			var gAdd:Number = 1 - amount * g / 255;
 			var bAdd:Number = 1 - amount * b / 255;
 			
-			concat(Vector.<Number>([
+			concatValues(
 				rAdd * LUMA_R,  rAdd * LUMA_G,  rAdd * LUMA_B,  0,  r * amount, 
 				gAdd * LUMA_R,  gAdd * LUMA_G,  gAdd * LUMA_B,  0,  g * amount, 
 				bAdd * LUMA_R,  bAdd * LUMA_G,  bAdd * LUMA_B,  0,  b * amount, 
 				            0,              0,              0,  1,           0
-			]));
+			);
 		}
 		
 		public function duoTone(blackColour:uint, whiteColour:uint, blackAlpha:Number = 1, whiteAlpha:Number = 1):void
@@ -74,12 +74,12 @@
 			var aMult:Number = 1;
 			var aOff:Number = blackAlpha * 255 - 255;
 			
-			concat(Vector.<Number>([
+			concatValues(
 				rAdd * LUMA_R,  rAdd * LUMA_G,  rAdd * LUMA_B,  0,    rB,
 				gAdd * LUMA_R,  gAdd * LUMA_G,  gAdd * LUMA_B,  0,    gB,
 				bAdd * LUMA_R,  bAdd * LUMA_G,  bAdd * LUMA_B,  0,    bB,
 				aAdd * LUMA_R,  aAdd * LUMA_G,  aAdd * LUMA_B,  1,  aOff
-			]));
+			);
 		}
 		
 		public function luminanceToAlpha(color:uint, negative:Boolean = false, preserveExistingAlpha:Boolean = true):void 
@@ -91,22 +91,22 @@
 			var aOff:Number = preserveExistingAlpha ? 
 				(negative ? 0 : -255) : 
 				(negative ? 255 : 0);
-			concat(Vector.<Number>([
+			concatValues(
 				0,      0,     0,     0,     Color.getRed(color) * 255,
 				0,      0,     0,     0,     Color.getGreen(color) * 255,
 				0,      0,     0,     0,     Color.getBlue(color) * 255,
 				rMult,  gMult, bMult, aMult, aOff
-			]));
+			);
 		}
 		
 		public function fill(color:uint):void
 		{
-			concat(Vector.<Number>([
+			concatValues(
 				0, 0, 0, 0, Color.getRed(color),
 				0, 0, 0, 0, Color.getGreen(color),
 				0, 0, 0, 0, Color.getBlue(color),
 				0, 0, 0, 1, 0
-			]));
+			);
 		}
 		
 		public function colorize(color:uint, amount:Number):void
@@ -116,12 +116,12 @@
 			var gOffset:Number = Color.getGreen(color) * amount;
 			var bOffset:Number = Color.getBlue(color) * amount;
 			
-			concat(Vector.<Number>([
+			concatValues(
 				mult,     0,     0,  0,  rOffset,
 				0,     mult,     0,  0,  gOffset,
 				0,        0,  mult,  0,  bOffset,
 				0,        0,     0,  1,        0
-			]));
+			);
 		}
 		
 		// Adapted from this answer: https://stackoverflow.com/a/21492544/545066
@@ -135,12 +135,12 @@
 			var gOffset:Number = Color.getGreen(color) * cAmount;
 			var bOffset:Number = Color.getBlue(color) * cAmount;
 			
-			concat(Vector.<Number>([
+			concatValues(
 				cMult,     0,      0,      0,  rOffset,
 				0,     cMult,      0,      0,  gOffset,
 				0,         0,  cMult,      0,  bOffset,
 				0,         0,      0,  aMult,        0
-			]));
+			);
 		}
 	}
 }
