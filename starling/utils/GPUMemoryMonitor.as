@@ -17,10 +17,10 @@ package starling.utils
 		private static const B_TO_MB:Number = 1.0 / (1024 * 1024); // convert from bytes to MB
 		
 		public var thresholds:Vector.<int> = new <int>[
-			128,
 			256,
+			384,
 			512,
-			1024
+			640
 		];
 		
 		protected var timer:Timer;
