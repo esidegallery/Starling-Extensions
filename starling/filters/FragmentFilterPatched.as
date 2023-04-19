@@ -10,12 +10,11 @@
 
 package starling.filters
 {
-    import com.esidegallery.utils.ClassUtils;
-
     import flash.display3D.Context3DTextureFormat;
     import flash.errors.IllegalOperationError;
     import flash.geom.Matrix3D;
     import flash.geom.Rectangle;
+    import flash.utils.getQualifiedClassName;
 
     import starling.core.Starling;
     import starling.core.starling_internal;
@@ -113,7 +112,7 @@ package starling.filters
                 }
                 catch (e:Error)
                 {
-                    throw new Error("Error while trying to render filter " + ClassUtils.getClassName(this) + " : " + e.message, ERROR_ID_FRAGMENT_FILTER_SKIP_RENDER);
+                    throw new Error("Error while trying to render filter " + getQualifiedClassName(this).split("::").pop() + " : " + e.message, ERROR_ID_FRAGMENT_FILTER_SKIP_RENDER);
                 }
             }
             else if (_quad.visible)
