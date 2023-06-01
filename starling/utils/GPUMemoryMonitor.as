@@ -6,34 +6,36 @@ package starling.utils
 
 	public class GPUMemoryMonitor extends EventDispatcher
 	{
-		/** <code>Event.data</code> is the error message (<code>String</code>). */ 
+		/** <code>Event.data</code> is the error message (<code>String</code>). */
 		public static const EVENT_TYPE_ERROR:String = "gpuMemoryMonitor_error";
+
 		/** <code>Event.data</code> is the threshold in MB (<code>int</code>). */
 		public static const EVENT_TYPE_OVER_THRESHOLD:String = "gpuMemoryMonitor_overThreshold";
+
 		/** <code>Event.data</code> is the threshold in MB (<code>int</code>). */
 		public static const EVENT_TYPE_UNDER_THRESHOLD:String = "gpuMemoryMonitor_underThreshold";
-		
+
 		private static const INTERVAL:int = 500;
 		private static const B_TO_MB:Number = 1.0 / (1024 * 1024); // convert from bytes to MB
-		
+
 		public var thresholds:Vector.<int> = new <int>[
-			256,
-			384,
-			512,
-			640
-		];
-		
+				256,
+				384,
+				512,
+				640
+			];
+
 		protected var timer:Timer;
 		protected var previousMemory:int;
-		
+
 		public function GPUMemoryMonitor()
 		{
 			timer = new Timer(INTERVAL);
-			timer.addEventListener(Timer.TIMER, update);
+			timer.addEventListener(Timer.EVENT_TIMER, update);
 			update();
 			timer.start();
 		}
-		
+
 		protected function update():void
 		{
 			if ("totalGPUMemory" in Starling.context)
@@ -58,7 +60,7 @@ package starling.utils
 				previousMemory = -1;
 			}
 		}
-		
+
 		public function dispose():void
 		{
 			timer && timer.dispose();
