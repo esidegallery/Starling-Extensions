@@ -38,7 +38,10 @@ package starling.animation
         private static const SAMPLE_STEP_SIZE:Number = 1.0 / (SPLINE_TABLE_SIZE - 1.0);
 
         /** @private */
-        public function BezierEasing() { throw new AbstractClassError(); }
+        public function BezierEasing()
+        {
+            throw new AbstractClassError;
+        }
 
         /** Create an easing function that's defined by two control points of a bezier curve.
          *  The curve will always go directly through points 0 and 3, which are fixed at
@@ -95,9 +98,12 @@ package starling.animation
 
             function bezierEasing(ratio:Number):Number
             {
-                if (ratio == 0) return 0;
-                else if (ratio == 1) return 1;
-                else return calcBezier(getTForX(ratio), y1, y2);
+                if (ratio == 0)
+                    return 0;
+                else if (ratio == 1)
+                    return 1;
+                else
+                    return calcBezier(getTForX(ratio), y1, y2);
             }
         }
 
@@ -121,8 +127,10 @@ package starling.animation
             {
                 t = a + (b - a) / 2;
                 currentX = calcBezier(t, x1, x2) - ratio;
-                if (currentX > 0) b = t;
-                else a = t;
+                if (currentX > 0)
+                    b = t;
+                else
+                    a = t;
             }
             while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i < SUBDIVISION_MAX_ITERATIONS);
 
@@ -134,13 +142,17 @@ package starling.animation
             for (var i:int = 0; i < NEWTON_ITERATIONS; ++i)
             {
                 var currentSlope:Number = getSlope(t, x1, x2);
-                if (currentSlope == 0.0) return t;
+                if (currentSlope == 0.0)
+                    return t;
                 var currentX:Number = calcBezier(t, x1, x2) - x;
                 t -= currentX / currentSlope;
             }
             return t;
         }
 
-        private static function linearEasing(ratio:Number):Number { return ratio; }
+        private static function linearEasing(ratio:Number):Number
+        {
+            return ratio;
+        }
     }
 }
