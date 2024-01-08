@@ -12,7 +12,7 @@ package starling.utils
 	import starling.utils.Pool;
 
 	/** Fixes issues with the default Starling implementation of DisplayObject.drawToBitmapData(). */
-	public function drawToBitmapData(target:DisplayObject, out:BitmapData = null, color:uint = 0, alpha:Number = 1):BitmapData
+	public function drawToBitmapData(target:DisplayObject, out:BitmapData = null, color:uint = 0, alpha:Number = 0):BitmapData
 	{
 		var painter:Painter = Starling.painter;
 		var stage:Stage = Starling.current.stage;
