@@ -1,5 +1,7 @@
 package starling.utils
 {
+	import flash.geom.Point;
+
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 
@@ -65,6 +67,26 @@ package starling.utils
 			}
 			// Different stages or item the same:
 			return 0;
+		}
+
+		public static function getGlobalScale(displayObject:DisplayObject, out:Point = null):Point
+		{
+			if (out == null)
+			{
+				out = new Point;
+			}
+			if (displayObject == null)
+			{
+				out.setTo(NaN, NaN);
+				return out;
+			}
+			out.setTo(1, 1);
+			while (displayObject != null)
+			{
+				out.setTo(out.x * displayObject.scaleX, out.y * displayObject.scaleY);
+				displayObject = displayObject.parent;
+			}
+			return out;
 		}
 	}
 }
