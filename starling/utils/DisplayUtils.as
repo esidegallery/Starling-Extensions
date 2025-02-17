@@ -1,7 +1,10 @@
 package starling.utils
 {
+	import flash.display.Graphics;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
 	import starling.display.DisplayObjectContainer;
 
@@ -87,6 +90,48 @@ package starling.utils
 				displayObject = displayObject.parent;
 			}
 			return out;
+		}
+
+		/**
+		 * Draws a rectangle to Starling's nativeOverlay graphics layer in an optional target space.
+		 * @param rect The rectangle to draw.
+		 * @param targetSpace The space to draw the rectangle in. If null, the rectangle will be drawn in the global space.
+		 * @param color The color of the rectangle.
+		 * @param alpha The alpha of the rectangle.
+		 */
+		public static function drawToNativeOverlayGraphics(rect:Rectangle, targetSpace:DisplayObject = null, color:uint = 0xFF0000, alpha:Number = 1):void
+		{
+			if (targetSpace != null)
+			{
+				var topLeft:Point = Pool.getPoint(rect.left, rect.top);
+				targetSpace.localToGlobal(topLeft, topLeft);
+				var bottomRight:Point = Pool.getPoint(rect.right, rect.bottom);
+				targetSpace.localToGlobal(bottomRight, bottomRight);
+				var x:Number = topLeft.x;
+				var y:Number = topLeft.y;
+				var width:Number = bottomRight.x - x;
+				var height:Number = bottomRight.y - y;
+				Pool.putPoint(topLeft);
+				Pool.putPoint(bottomRight);
+			}
+			else
+			{
+				x = rect.x;
+				y = rect.y;
+				width = rect.width;
+				height = rect.height;
+			}
+
+			var graphics:Graphics = Starling.current.nativeOverlay.graphics;
+			graphics.lineStyle(NaN);
+			graphics.beginFill(color, alpha);
+			graphics.drawRect(x, y, width, height);
+			graphics.endFill();
+		}
+
+		public static function clearNativeOverlayGraphics():void
+		{
+			Starling.current.nativeOverlay.graphics.clear();
 		}
 	}
 }
